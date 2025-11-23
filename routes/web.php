@@ -6,10 +6,14 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\StudentController;
 
 
+Route::get('/',[LandingController::class, 'index'])->name('landing');
 
 
-Route::get('/', [LandingController::class, 'index'])->name('landing');
+//admin controller
+Route::prefix('admin')->name('admin.')->group(function(){
+Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::resource('students', StudentController::class);
 });
+
+
